@@ -18,6 +18,7 @@ const std::string airlines[8] = { "AF", "LH", "EY", "DL", "KL", "BA", "AY", "EY"
 TowerSimulation::TowerSimulation(int argc, char** argv) :
     help { (argc > 1) && (std::string { argv[1] } == "--help"s || std::string { argv[1] } == "-h"s) }
 {
+    //time_t* t = nullptr;
     MediaPath::initialize(argv[0]);
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     GL::init_gl(argc, argv, "Airport Tower Simulation");
@@ -57,6 +58,10 @@ void TowerSimulation::create_keystrokes() const
     GL::keystrokes.emplace('+', []() { GL::change_zoom(0.95f); });
     GL::keystrokes.emplace('-', []() { GL::change_zoom(1.05f); });
     GL::keystrokes.emplace('f', []() { GL::toggle_fullscreen(); });
+    GL::keystrokes.emplace('a', []() {GL::ticks_per_sec++; }); // up framerate
+    GL::keystrokes.emplace('z', []() {GL::ticks_per_sec--; }); // down framerate
+    GL::keystrokes.emplace('p', []() {GL::ticks_per_sec = 0; }); // pause
+
 }
 
 void TowerSimulation::display_help() const
