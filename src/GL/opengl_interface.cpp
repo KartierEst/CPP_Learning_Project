@@ -76,9 +76,19 @@ void display(void)
 void timer(const int step)
 {
     if(!pause){
-        for (auto& item : move_queue)
+        for (auto it = move_queue.begin(); it != move_queue.end();)
         {
-            item->move();
+            auto* dynamic_obj = *it;
+            dynamic_obj->move();
+            if (!dynamic_obj->if_destroy())
+            {
+                ++it;
+            }
+            else
+            {
+                it = move_queue.erase(it);
+                delete dynamic_obj;
+            }
         }
     }
     glutPostRedisplay();

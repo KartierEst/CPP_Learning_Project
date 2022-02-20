@@ -73,11 +73,20 @@ continue le programme.
 
 3. Après recherche, j'ai remarqué que c'était la variable SERVICE_CYCLES qui fait en sorte que les avions restent dans le terminal plus longtemps, donc on a juste à le multiplier par 2.
 
-4. On va faire un booléen qui va etre faux et passera à vrai avant de s'envoler une deuxieme fois.
+4. On va faire un booléen dans la classe Aircraft qui va etre faux et passera à vrai avant de s'envoler une deuxieme fois. Puis on checkera dans timer si le booléen du dynamic object renvoi true, on detruit l'object et l'enlève de la move_queue
+sinon on continue, pour pouvoir récupérer le booléen, on crée une fonction virtual dand DynamicObject qui renvoit un booléen (le getter du booléen), on le met à false par défaut et dans la classe Aircraft on va faire
+un getter avec un override qui lui changera la valeur du booléen. Dans le move de Aircrfat on fera un return quand tout les points que l'avion doit parcourir sont parcourus et que le booléen est vraie pour l'arreter.
 
 5. Ce n'est pas très pertinent de faire la meme pour le set de DynamicObject car celle ci est un set tout simplement, donc on va changer l'emplacement de notre vector de Displayable, et le mettre en static inline dans
 notre classe Displayable pour en avoir accès partout et la modifier dans les endroits ou on en a besoin. Maintenant on peut en avoir accès dans notre constructeur et destructeur donc on va pouvoir du coup ajouter les
 éléments directement dedans avec emplace_back de this sur le vector mais pour le suprrimer (erase), c'est plus technique, il faut erase avec un find qui cherche l'élément à retirer et erase le retire
 (on a vu ca dans le cours 6 de cette fin de semaine (20/02)).
 
-6. Uiliser une map, numéro terminal + avion.
+6. Uiliser une map, l'avion en tant que clés car on veut récupérer dans quel terminal on à l'avion. Ca se resume à dire qu'on trouve le terminal à partir de l'avion.
+
+D - Théorie
+
+1. On utilise une map privé dans la classe tower qui s'occupera directement d'associer des avions et des terminaux, vu qu'elle est private, seule Tower peut l'utiliser.
+
+2. Parce qu'on ne veut pas que la direction change au cours du programme, donc on ne passe pas par référence pour pas avoir de soucis de modification. En plus la fonction est privé de plus pour éviter les incohérences et
+effet indésirables.

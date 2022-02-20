@@ -91,6 +91,10 @@ void Aircraft::move()
 {
     if (waypoints.empty())
     {
+        if(already_serviced)
+        {
+            return;
+        }
         waypoints = control.get_instructions(*this);
     }
 
