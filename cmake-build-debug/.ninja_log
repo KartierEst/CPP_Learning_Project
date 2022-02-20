@@ -1,0 +1,25 @@
+# ninja log v5
+2	1536	1645319821366838727	CMakeFiles/tower.dir/src/tower_sim.cpp.o	ca60b66faa3aaba0
+2	1062	1645290274362134432	CMakeFiles/tower.dir/src/img/image.cpp.o	9da917a91d7a381
+1536	1658	1645319821482839668	tower	db19b0e646b91523
+1	23	1644832829782918532	CMakeFiles/tower.dir/src/main.cpp.o	ab5999feac792f4d
+1	1035	1645319669345606426	CMakeFiles/tower.dir/src/aircraft.cpp.o	bac3f5ad671cb3b0
+2	1354	1645319821182837234	CMakeFiles/tower.dir/src/tower.cpp.o	6ca4c735689e9b72
+2	1096	1645319669405606913	CMakeFiles/tower.dir/src/GL/opengl_interface.cpp.o	f37dae09a0a051a
+1	1165	1645381990030262462	CMakeFiles/tower.dir/src/aircraft.cpp.o	bac3f5ad671cb3b0
+1	1363	1645381990226264365	CMakeFiles/tower.dir/src/tower.cpp.o	6ca4c735689e9b72
+1	1552	1645381990414266187	CMakeFiles/tower.dir/src/tower_sim.cpp.o	ca60b66faa3aaba0
+1	1089	1645382013874492321	CMakeFiles/tower.dir/src/GL/opengl_interface.cpp.o	f37dae09a0a051a
+1	1132	1645382966938211648	CMakeFiles/tower.dir/src/GL/opengl_interface.cpp.o	f37dae09a0a051a
+1	1053	1645383042882763344	CMakeFiles/tower.dir/src/GL/opengl_interface.cpp.o	f37dae09a0a051a
+0	1068	1645383042894763430	CMakeFiles/tower.dir/src/aircraft.cpp.o	bac3f5ad671cb3b0
+1	1230	1645383043058764615	CMakeFiles/tower.dir/src/tower.cpp.o	6ca4c735689e9b72
+1	1500	1645383043326766556	CMakeFiles/tower.dir/src/tower_sim.cpp.o	ca60b66faa3aaba0
+1500	1631	1645383043450767453	tower	db19b0e646b91523
+1	1111	1645383508422074298	CMakeFiles/tower.dir/src/GL/opengl_interface.cpp.o	f37dae09a0a051a
+1111	1240	1645383508550075197	tower	db19b0e646b91523
+2	1041	1645384006934298223	CMakeFiles/tower.dir/src/GL/opengl_interface.cpp.o	f37dae09a0a051a
+1	1067	1645384006958298484	CMakeFiles/tower.dir/src/aircraft.cpp.o	bac3f5ad671cb3b0
+2	1295	1645384007186300975	CMakeFiles/tower.dir/src/tower.cpp.o	6ca4c735689e9b72
+2	1557	1645384007450303860	CMakeFiles/tower.dir/src/tower_sim.cpp.o	ca60b66faa3aaba0
+1557	1676	1645384007566305128	tower	db19b0e646b91523
