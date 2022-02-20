@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GL/displayable.hpp"
 #include "aircraft_types.hpp"
 #include "config.hpp"
 #include "geometry.hpp"
@@ -64,4 +63,5 @@ public:
     void move() override;
 
     friend class Tower;
+    bool already_serviced = false;
 };

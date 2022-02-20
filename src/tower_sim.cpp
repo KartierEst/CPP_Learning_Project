@@ -1,6 +1,5 @@
 #include "tower_sim.hpp"
 
-#include "GL/opengl_interface.hpp"
 #include "aircraft.hpp"
 #include "airport.hpp"
 #include "config.hpp"
@@ -18,7 +17,6 @@ const std::string airlines[8] = { "AF", "LH", "EY", "DL", "KL", "BA", "AY", "EY"
 TowerSimulation::TowerSimulation(int argc, char** argv) :
     help { (argc > 1) && (std::string { argv[1] } == "--help"s || std::string { argv[1] } == "-h"s) }
 {
-    //time_t* t = nullptr;
     MediaPath::initialize(argv[0]);
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     GL::init_gl(argc, argv, "Airport Tower Simulation");
@@ -41,7 +39,6 @@ void TowerSimulation::create_aircraft(const AircraftType& type) const
     const Point3D direction = (-start).normalize();
 
     Aircraft* aircraft = new Aircraft { type, flight_number, start, direction, airport->get_tower() };
-    GL::display_queue.emplace_back(aircraft);
     GL::move_queue.emplace(aircraft);
 }
 
@@ -59,9 +56,8 @@ void TowerSimulation::create_keystrokes() const
     GL::keystrokes.emplace('-', []() { GL::change_zoom(1.05f); });
     GL::keystrokes.emplace('f', []() { GL::toggle_fullscreen(); });
     GL::keystrokes.emplace('a', []() {GL::ticks_per_sec++; }); // up framerate
-    GL::keystrokes.emplace('z', []() {GL::ticks_per_sec--; }); // down framerate
-    GL::keystrokes.emplace('p', []() {GL::ticks_per_sec = 0; }); // pause
-
+    GL::keystrokes.emplace('z', []() {(GL::ticks_per_sec > 1) ? GL::ticks_per_sec-- : GL::ticks_per_sec; }); // down framerate
+    GL::keystrokes.emplace('p', []() {GL::pause = !GL::pause;}); // pause
 }
 
 void TowerSimulation::display_help() const
@@ -82,7 +78,6 @@ void TowerSimulation::init_airport()
     airport = new Airport { one_lane_airport, Point3D { 0, 0, 0 },
                             new img::Image { one_lane_airport_sprite_path.get_full_path() } };
 
-    GL::display_queue.emplace_back(airport);
     GL::move_queue.emplace(airport);
 }
 
@@ -93,9 +88,7 @@ void TowerSimulation::launch()
         display_help();
         return;
     }
-
     init_airport();
     init_aircraft_types();
-
     GL::loop();
 }

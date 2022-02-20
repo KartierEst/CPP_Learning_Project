@@ -15,17 +15,22 @@ WaypointQueue Tower::get_circle() const
 
 WaypointQueue Tower::get_instructions(Aircraft& aircraft)
 {
-    if (!aircraft.is_at_terminal)
-    {
-        // if the aircraft is far, then just guide it to the airport vicinity
-        if (aircraft.distance_to(airport.pos) < 5)
+        if (!aircraft.is_at_terminal)
         {
-            // try and reserve a terminal for the craft to land
-            const auto vp = airport.reserve_terminal(aircraft);
-            if (!vp.first.empty())
+            // if the aircraft is far, then just guide it to the airport vicinity
+            if (aircraft.distance_to(airport.pos) < 5)
             {
-                reserved_terminals.emplace_back(&aircraft, vp.second);
-                return vp.first;
+                // try and reserve a terminal for the craft to land
+                const auto vp = airport.reserve_terminal(aircraft);
+                if (!vp.first.empty())
+                {
+                    reserved_terminals.emplace(&aircraft,vp.second);
+                    return vp.first;
+                }
+                else
+                {
+                    return get_circle();
+                }
             }
             else
             {
@@ -34,33 +39,30 @@ WaypointQueue Tower::get_instructions(Aircraft& aircraft)
         }
         else
         {
-            return get_circle();
+            // get a path for the craft to start
+            const auto it = reserved_terminals.find(&aircraft);
+            assert(it != reserved_terminals.end());
+            const auto terminal_num = it->second;
+            Terminal& terminal      = airport.get_terminal(terminal_num);
+            if (!terminal.is_servicing())
+            {
+                terminal.finish_service();
+                reserved_terminals.erase(it);
+                aircraft.is_at_terminal = false;
+                //aircraft.already_serviced = true;
+                return airport.start_path(terminal_num);
+            }
+            else
+            {
+                return {};
+            }
         }
-    }
-    else
-    {
-        // get a path for the craft to start
-        const auto it = find_craft_and_terminal(aircraft);
-        assert(it != reserved_terminals.end());
-        const auto terminal_num = it->second;
-        Terminal& terminal      = airport.get_terminal(terminal_num);
-        if (!terminal.is_servicing())
-        {
-            terminal.finish_service();
-            reserved_terminals.erase(it);
-            aircraft.is_at_terminal = false;
-            return airport.start_path(terminal_num);
-        }
-        else
-        {
-            return {};
-        }
-    }
 }
 
-void Tower::arrived_at_terminal(const Aircraft& aircraft)
+void Tower::arrived_at_terminal(Aircraft& aircraft)
 {
-    const auto it = find_craft_and_terminal(aircraft);
+    const auto it = reserved_terminals.find(&aircraft);
     assert(it != reserved_terminals.end());
+    //aircraft.~Aircraft();
     airport.get_terminal(it->second).start_service(aircraft);
 }

@@ -1,6 +1,5 @@
 #include "aircraft.hpp"
 
-#include "GL/opengl_interface.hpp"
 
 #include <cmath>
 
