@@ -63,6 +63,5 @@ void Tower::arrived_at_terminal(Aircraft& aircraft)
 {
     const auto it = reserved_terminals.find(&aircraft);
     assert(it != reserved_terminals.end());
-    //aircraft.~Aircraft();
     airport.get_terminal(it->second).start_service(aircraft);
 }

@@ -1,6 +1,7 @@
 #include "displayable.hpp"
 #include "opengl_interface.hpp"
 #include "../aircraft.hpp"
+#include "../aircraftManager.h"
 
 namespace GL {
 
@@ -76,19 +77,9 @@ void display(void)
 void timer(const int step)
 {
     if(!pause){
-        for (auto it = move_queue.begin(); it != move_queue.end();)
+        for (auto& item : move_queue)
         {
-            auto* dynamic_obj = *it;
-            dynamic_obj->move();
-            if (!dynamic_obj->if_destroy())
-            {
-                ++it;
-            }
-            else
-            {
-                it = move_queue.erase(it);
-                delete dynamic_obj;
-            }
+            item->move();
         }
     }
     glutPostRedisplay();

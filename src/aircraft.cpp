@@ -93,6 +93,7 @@ void Aircraft::move()
     {
         if(already_serviced)
         {
+            redeployed = true;
             return;
         }
         waypoints = control.get_instructions(*this);

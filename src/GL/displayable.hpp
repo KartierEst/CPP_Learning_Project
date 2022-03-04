@@ -40,6 +40,5 @@ struct disp_z_cmp
     }
 };
 
-//inline std::vector<const Displayable*>display_queue;
 
 } // namespace GL
