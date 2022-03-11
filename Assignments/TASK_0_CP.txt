@@ -51,12 +51,19 @@ WaypointType : represente un enum qui possède des caracteritiques qui represent
 Waypoint : rergarde en fonction des points ou est l'avion en fonction de sa position.
 
 
+Tower travaille sur les aircraft avec aircraft get_instruction et arrived_at_terminal mais prend aussi un Airport en parametre qu'en en crée un Tower et sur les terminaux
+Aircraft possède un Tower& qui represente sa tour de controle auquel il est associé, qui est remplis quand on crée un Aircraft avec son contructeur
+Airport possède une fonction qui crée des terminaux
+Terminal travail sur les Aircraft, et possède un champ qui represente l'avion qui est garé dans un terminal. On a aussi quelques fonctions comme in_use, assign_aircraft, start_service
+et finish_service qui travaille sur le current aircfrat ou assigne un avion à celui ci.
+
 Les classes et fonctions qui sont impliquées dans la génération du chemin d'un avion sont :
 tower : 
     WaypointQueue get_instructions(Aircraft& aircraft)
 
 aircraft:
-    void move() 
+    void move()
+
 
 Le conteneur de la librairie standard qui a été choisi pour représenter le chemin est std::deque<Waypoint> pour le conteneur, on a choisi deque car pour une queue, on aurait pu utiliser std::queue, mais on a choisi std::deque parce qu'on veut rajouter des Waypoints à la fin et au debut de la queue.
 
