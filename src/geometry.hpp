@@ -5,6 +5,7 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <numeric>
 
 struct Point2D
 {
@@ -64,7 +65,7 @@ struct Point2D
 
 struct Point3D
 {
-    float values[3] {};
+    std::array<float, 3> values {};
 
     Point3D() {}
     Point3D(float x, float y, float z) : values { x, y, z } {}
@@ -80,9 +81,11 @@ struct Point3D
 
     Point3D& operator+=(const Point3D& other)
     {
-        x() += other.x();
+        /*x() += other.x();
         y() += other.y();
-        z() += other.z();
+        z() += other.z();*/
+        //std::transform(values.begin(),values.end(),values.begin(),
+        std::transform(other.values.begin(),other.values.end(),values.begin(),values.begin(),std::plus<int>());
         return *this;
     }
 
@@ -91,14 +94,18 @@ struct Point3D
         x() -= other.x();
         y() -= other.y();
         z() -= other.z();
+        //std::for_each(values.begin(),values.end(),[](float c){c = c-c;});
+        std::transform(other.values.begin(),other.values.end(),values.begin(),values.begin(),[](const float& c,const float& o){return c-=o;});
         return *this;
     }
 
     Point3D& operator*=(const float scalar)
     {
-        x() *= scalar;
+        std::transform(values.begin(),values.end(),values.begin(),[scalar](const float& c) { return c*scalar; });
+        /*x() *= scalar;
         y() *= scalar;
-        z() *= scalar;
+        z() *= scalar;*/
+        //std::for_each(values.begin(),values.end(),[scalar](float c){c = c*scalar;});
         return *this;
     }
 
@@ -125,7 +132,10 @@ struct Point3D
 
     Point3D operator-() const { return Point3D { -x(), -y(), -z() }; }
 
-    float length() const { return std::sqrt(x() * x() + y() * y() + z() * z()); }
+    float length() const {
+        return std::sqrt(x() * x() + y() * y() + z() * z());
+        //return std::sqrt(std::accumulate(values.begin(),values.end(),0));
+    }
 
     float distance_to(const Point3D& other) const { return (*this - other).length(); }
 

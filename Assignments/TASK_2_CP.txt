@@ -1,0 +1,23 @@
+Algorithmes
+
+Objectif 1 - Refactorisation de l'existant
+
+A - Structured Bindings
+On va tout simplement donnée un nom au first et second du pair dans le for avec le structure binding,
+on va du coup faire un [nom du first, nom du second] : pair.
+
+B - Algorithmes divers
+1. On va utiliser, remove_if et erase pour pouvoir enlever les avions supprimés quand ils ont finis
+leurs parcours si celui ci à son champs "if_destroy()" à vrai. Donc on utilise l'iterator,
+et on code un prédicat avec function qui renvoit un booléen et prend en paramètre un
+unique_ptr de Aircraft, rien n'est capturé ([]), et un unique_ptr de aircraft en paramètre et va
+move() l'avion et renvoyer si on doit le détruire ou pas.
+
+2. On va ajouter un champ int dans les avions qui represente l'indice de l'airline qu'il represente
+dans le tableau d'airlines et du coup faire une fonction dans aircraft_manager qui compter le nombre d'avion
+qui a comme indice dans son champ, le x en paramètre. Quand on crée l'avion dans la factory, on va créer
+un int qui represente l'indice aléatoire dans airlines, et le mettre dans la création de l'avion.
+
+C - Relooking de Point3D
+1.
+

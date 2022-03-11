@@ -14,6 +14,7 @@ class Aircraft : public GL::Displayable, public GL::DynamicObject
 private:
     const AircraftType& type;
     const std::string flight_number;
+    const unsigned int airline_indice;
     Point3D pos, speed; // note: the speed should always be normalized to length 'speed'
     WaypointQueue waypoints = {};
     Tower& control;
@@ -46,11 +47,12 @@ private:
     Aircraft& operator=(const Aircraft&) = delete;
 
 public:
-    Aircraft(const AircraftType& type_, const std::string_view& flight_number_, const Point3D& pos_,
+    Aircraft(const AircraftType& type_, const std::string_view& flight_number_, const unsigned int& airline_indice_, const Point3D& pos_,
              const Point3D& speed_, Tower& control_) :
         GL::Displayable { pos_.x() + pos_.y() },
         type { type_ },
         flight_number { flight_number_ },
+        airline_indice { airline_indice_ },
         pos { pos_ },
         speed { speed_ },
         control { control_ }
@@ -62,6 +64,7 @@ public:
     }
 
     const std::string& get_flight_num() const { return flight_number; }
+    const unsigned int& get_indice() const { return airline_indice; }
     float distance_to(const Point3D& p) const { return pos.distance_to(p); }
     bool if_destroy() override { return redeployed; }//already_serviced; }
 
