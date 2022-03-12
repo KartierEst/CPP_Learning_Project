@@ -15,6 +15,7 @@ private:
     const AircraftType& type;
     const std::string flight_number;
     const unsigned int airline_indice;
+    unsigned int fuel = 150 + rand() % 2851;
     Point3D pos, speed; // note: the speed should always be normalized to length 'speed'
     WaypointQueue waypoints = {};
     Tower& control;
@@ -22,6 +23,7 @@ private:
     bool is_at_terminal        = false;
     bool already_serviced = false;
     bool redeployed = false;
+    bool not_fuel = false;
 
     // turn the aircraft to arrive at the next waypoint
     // try to facilitate reaching the waypoint after the next by facing the
@@ -67,9 +69,15 @@ public:
     const unsigned int& get_indice() const { return airline_indice; }
     float distance_to(const Point3D& p) const { return pos.distance_to(p); }
     bool if_destroy() override { return redeployed; }//already_serviced; }
+    bool get_not_fuel() { return not_fuel;}
+
 
     void display() const override;
     void move() override;
 
     friend class Tower;
+    void update();
+
+    bool has_terminal() const;
+    bool is_circling() const;
 };

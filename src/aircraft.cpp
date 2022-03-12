@@ -90,6 +90,12 @@ void Aircraft::add_waypoint(const Waypoint& wp, const bool front)
 
 void Aircraft::move()
 {
+    if(has_terminal()){
+        std::cout << "has terminal" << std::endl;
+    }
+    if(is_circling()){
+        std::cout << "hasnt terminal" << std::endl;
+    }
     if (waypoints.empty())
     {
         if(already_serviced)
@@ -107,7 +113,24 @@ void Aircraft::move()
         pos += speed;
 
         // if we are close to our next waypoint, stike if off the list
-        if (!waypoints.empty() && distance_to(waypoints.front()) < DISTANCE_THRESHOLD)
+        waypoints.front();
+            if (is_circling())
+            {
+                control.reserve_terminal(*this);
+                if (has_terminal())
+                {
+                    if (waypoints.front().is_at_terminal())
+                    {
+                        arrive_at_terminal();
+                    }
+                    else
+                    {
+                        operate_landing_gear();
+                    }
+                }
+                waypoints.pop_front();
+            }
+        /*if (!waypoints.empty() && distance_to(waypoints.front()) < DISTANCE_THRESHOLD)
         {
             if (waypoints.front().is_at_terminal())
             {
@@ -118,7 +141,7 @@ void Aircraft::move()
                 operate_landing_gear();
             }
             waypoints.pop_front();
-        }
+        }*/
 
         if (is_on_ground())
         {
@@ -130,6 +153,10 @@ void Aircraft::move()
         }
         else
         {
+            update();
+            if(not_fuel){
+                std::cout << this->flight_number << " are crash" << std::endl;
+            }
             // if we are in the air, but too slow, then we will sink!
             const float speed_len = speed.length();
             if (speed_len < SPEED_THRESHOLD)
@@ -146,4 +173,24 @@ void Aircraft::move()
 void Aircraft::display() const
 {
     type.texture.draw(project_2D(pos), { PLANE_TEXTURE_DIM, PLANE_TEXTURE_DIM }, get_speed_octant());
+}
+void Aircraft::update()
+{
+    if(fuel != 0){
+        fuel--;
+        return;
+    }
+    not_fuel = true;
+}
+bool Aircraft::has_terminal() const
+{
+    if(control.get_reserved_terminal().find(this) != control.get_reserved_terminal().end()){
+        return true;
+    }
+    return false;
+}
+
+bool Aircraft::is_circling() const
+{
+    return !has_terminal();
 }

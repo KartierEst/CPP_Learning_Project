@@ -20,6 +20,7 @@ private:
     Airport& airport;
     // aircrafts may reserve a terminal
     // if so, we need to save the terminal number in order to liberate it when the craft leaves
+    //AircraftToTerminal reserved_terminals = {};
     AircraftToTerminal reserved_terminals = {};
 
     WaypointQueue get_circle() const;
@@ -29,11 +30,12 @@ private:
         return std::find_if(reserved_terminals.begin(), reserved_terminals.end(),
                             [&aircraft](const auto& x) { return x.first == &aircraft; });
     }*/
-
 public:
     Tower(Airport& airport_) : airport { airport_ } {}
-
     // produce instructions for aircraft
     WaypointQueue get_instructions(Aircraft& aircraft);
     void arrived_at_terminal(Aircraft& aircraft);
+    AircraftToTerminal get_reserved_terminal() { return reserved_terminals; }
+
+    WaypointQueue reserve_terminal(Aircraft& aircraft);
 };

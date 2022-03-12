@@ -19,5 +19,43 @@ qui a comme indice dans son champ, le x en paramètre. Quand on crée l'avion da
 un int qui represente l'indice aléatoire dans airlines, et le mettre dans la création de l'avion.
 
 C - Relooking de Point3D
-1.
+
+1.On va utiliser std::transform pour changer chaque valeur de l'array, comme on veut juste les multiplier par un float
+On a juste à faire un iterator, partir de begin de l'array qui represente les coordonnées du point, on va
+jusau'à la fin ( end() de l'array ), et on modifie l'array donc le 3eme paramètre est le début de l'array
+( begin() ), et on finis par la lambda qui va etre appliquer pour chaque valeur donc la multiplier
+par le scalairen, donc on capture scalar, on prend en parametre un float ( la valeur de l'array ) et on renvoi
+la modification donc le float mulitplier par le scalaire.
+
+2. Pour les opérateur += et -= c'est du meme style, on utilise transform car on veut modifier le tableau.
+On parcours du coup le debut de values, jusq'à la fin et on parcours les valeurs dans le Point en paramètre
+do nc on pars des valeurs du points en paramètres et de notre points et on les additionne avec std::plus<float>
+et pareil avec -= juste qu'on utilise minus<float>.
+
+3. Pour celui ci, on va modifier ce qu'on a dans std::sqrt par std::accumulate qui parcours un tableau
+et ajoute toutes les valeurs de celui ci en fonction de la lambda ( ou fonction ) qu'on a en dernier paramètre
+et en 3ème la valeur initial, ici 0 vu qu'on veut une somme, on par de values.begin() jusqu'à sa fin avec end()
+puis pour la lambda on prend le compteur ( un long ) et la valeur du tableau ( le float ), et on renvoit
+le compteur additionner à la valeur du tableau au carré.
+
+Objectif 2 - Rupture de kérosène
+A - Consommation d'essence
+
+On va faire 2 fonctions et 2 champ privé ( un booléen qui regarde si il a encore de l'essence et fuel qui
+ vaut l'essence de l'avion ), la fonction update va decrementé le fuel de l'avion si il est différent de 0,
+ si fuel est égale à 0 on passe le booléen à true, et dans le move de AircraftManager on va regarder aussi
+ si l'avion a de l'essence ou non, donc on appel le getter du booléen qu'on va mettre dans la classe aircraft
+ du coup on regarde si on doit le détruire ou si il a plus d'essence. On update que quand l'avion est dans les airs
+, donc dans le else du if qui vérifie si l'avion est sur l'aéroport.
+
+B - Un terminal s'il vous plaît
+
+1.  On va regarder si dans notre map reserve_terminal qui reserve les terminaux dans tower, ( control est le champ
+Tower de l'avion en question ) contient l'avion courant, si on le trouve avec la fonciton find on renvoi vrai
+sinon on renvoit faux.
+
+2. On renvoit le contraire de la fonction qu'on a en 1, car si on a pas reservé un terminal pour lui, on attend de
+se faire assigner un terminal.
+
+3.
 

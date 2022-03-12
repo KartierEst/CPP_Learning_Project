@@ -10,7 +10,7 @@ void AircraftManager::move()
 {
     std::function<bool(std::unique_ptr<Aircraft>&)> predicat = [](std::unique_ptr<Aircraft>& aircraft){
         aircraft->move();
-        return aircraft->if_destroy();
+        return aircraft->if_destroy() || aircraft->get_not_fuel();
     };
 
     auto sup = std::remove_if(aircrafts.begin(),aircrafts.end(),predicat);
