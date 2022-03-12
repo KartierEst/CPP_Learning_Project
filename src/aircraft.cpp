@@ -90,12 +90,12 @@ void Aircraft::add_waypoint(const Waypoint& wp, const bool front)
 
 void Aircraft::move()
 {
-    if(has_terminal()){
-        std::cout << "has terminal" << std::endl;
-    }
-    if(is_circling()){
-        std::cout << "hasnt terminal" << std::endl;
-    }
+    /*if(has_terminal()){
+        if(get_not_fuel()){
+            auto terminal = control.get_reserved_terminal();
+            terminal.erase(terminal.find(this));
+        }
+    }*/
     if (waypoints.empty())
     {
         if(already_serviced)
@@ -112,25 +112,14 @@ void Aircraft::move()
         // move in the direction of the current speed
         pos += speed;
 
+        // if we're still circling, try to get a terminal from the control tower
+        if (is_circling() && !already_serviced)
+        {
+            auto new_path = control.reserve_terminal(*this);
+            if(!new_path.empty()) waypoints = std::move(new_path);
+        }
         // if we are close to our next waypoint, stike if off the list
-        waypoints.front();
-            if (is_circling())
-            {
-                control.reserve_terminal(*this);
-                if (has_terminal())
-                {
-                    if (waypoints.front().is_at_terminal())
-                    {
-                        arrive_at_terminal();
-                    }
-                    else
-                    {
-                        operate_landing_gear();
-                    }
-                }
-                waypoints.pop_front();
-            }
-        /*if (!waypoints.empty() && distance_to(waypoints.front()) < DISTANCE_THRESHOLD)
+        if (!waypoints.empty() && distance_to(waypoints.front()) < DISTANCE_THRESHOLD)
         {
             if (waypoints.front().is_at_terminal())
             {
@@ -141,7 +130,7 @@ void Aircraft::move()
                 operate_landing_gear();
             }
             waypoints.pop_front();
-        }*/
+        }
 
         if (is_on_ground())
         {

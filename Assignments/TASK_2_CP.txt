@@ -57,5 +57,13 @@ sinon on renvoit faux.
 2. On renvoit le contraire de la fonction qu'on a en 1, car si on a pas reservé un terminal pour lui, on attend de
 se faire assigner un terminal.
 
-3.
+3. Pour reserver le terminal on va faire appel à reserve_terminal de l'aéroport et on va juste regarder si il est
+possible de renvoyer un chemin pour aller au terminal ( si il y en a un de libre ), sinon on renvoit un chemin vide.
+
+4. On va juste ajouter une condition qui nous facilitera la tache, si notre fonction is_cycling renvoit vrai, ce qui
+veut dire que l'avion attend d'etre placer sur un terminal ou si l'avion n'est pas détruis. Du coup on appel
+notre fonction reserve terminal qu'on range dans une variable et si celle ci n'est pas vide on la met dans notre
+waypoints ( celui de l'avion ).
+
+
 
