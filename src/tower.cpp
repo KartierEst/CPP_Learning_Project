@@ -68,41 +68,24 @@ void Tower::arrived_at_terminal(Aircraft& aircraft)
 
 WaypointQueue Tower::reserve_terminal(Aircraft& aircraft)
 {
-    int a = 0;
-    for(auto i : reserved_terminals){
-        std::cout << a << " : " << i.first->flight_number << std::endl;
-        a++;
-    }
     // try and reserve a terminal for the craft to land
     const auto vp = airport.reserve_terminal(aircraft);
     if (!vp.first.empty())
     {
         reserved_terminals.emplace(&aircraft, vp.second);
-        return vp.first;
     }
-    return {};
+    return vp.first;;
 }
 
-/*void Tower::dereserve_terminal(Aircraft& aircraft)
-{
-    const auto it = reserved_terminals.find(&aircraft);
-    if(it != reserved_terminals.end()){
-        reserved_terminals.erase(it);
-    }
-}*/
 
 void Tower::terminal_finish(Aircraft& aircraft)
 {
     const auto it = reserved_terminals.find(&aircraft);
-    const auto terminal_num = it->second;
-    Terminal& terminal      = airport.get_terminal(terminal_num);
-    if (!terminal.is_servicing())
-    {
+    if(it != reserved_terminals.end()){
+        const auto terminal_num = it->second;
+        std::cout << "terminal current " << terminal_num << std::endl;
+        Terminal& terminal      = airport.get_terminal(terminal_num);
         terminal.finish_service();
-    }
-    if(it != reserved_terminals.end())
-    {
         reserved_terminals.erase(it);
     }
-    //return terminal;
 }

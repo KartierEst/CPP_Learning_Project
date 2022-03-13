@@ -63,7 +63,7 @@ public:
     }
     ~Aircraft()
     {
-        //control.dereserve_terminal(*this);aaaaaaaaaaa
+        //control.dereserve_terminal(*this);
         control.terminal_finish(*this);
     }
 
@@ -71,7 +71,8 @@ public:
     const unsigned int& get_indice() const { return airline_indice; }
     float distance_to(const Point3D& p) const { return pos.distance_to(p); }
     bool if_destroy() override { return redeployed; }//already_serviced; }
-    bool get_not_fuel() { return not_fuel;}
+    bool get_not_fuel() { return not_fuel;} // if dont have fuel
+    unsigned int get_fuel() { return fuel;} // the fuel
 
 
     void display() const override;

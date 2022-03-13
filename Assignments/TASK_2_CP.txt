@@ -64,6 +64,14 @@ possible de renvoyer un chemin pour aller au terminal ( si il y en a un de libre
 veut dire que l'avion attend d'etre placer sur un terminal ou si l'avion n'est pas détruis. Du coup on appel
 notre fonction reserve terminal qu'on range dans une variable et si celle ci n'est pas vide on la met dans notre
 waypoints ( celui de l'avion ).
+Le problème c'est que des fois un avion va reserver un terminal et que entre les 2 il n'aura plus d'essence et sera
+détruis, et du coup reservera un terminal sans jamais y sortir, du coup on va faire une methode dans Tower qui va desallouer
+l'avion qui sera bloqué et on va aller l'appeler dans le destructeur de l'avion. Donc à chaque fois qu'un avion va
+etre detruis on appelera cettre fonction, on verifi dans la fonction si l'avion a bien reservé un terminal, si oui on
+recupérer le terminal correspondant au numero du terminal de l'avion qu'on recupère avec la map et on finis son service
+avec la fonction finish-service() du terminal qu'on a recupéré. Et on oublie pas de le supprimer de la map des terminaux reservé.
 
+
+C - Minimiser les crashs
 
 

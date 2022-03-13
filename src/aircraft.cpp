@@ -66,7 +66,6 @@ void Aircraft::operate_landing_gear()
         else if (!ground_before && ground_after)
         {
             std::cout << flight_number << " is now landing..." << std::endl;
-            std::cout << flight_number << std::endl;
             landing_gear_deployed = true;
         }
         else if (!ground_before && !ground_after)

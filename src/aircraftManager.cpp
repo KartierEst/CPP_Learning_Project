@@ -6,8 +6,22 @@
 #include "airport.hpp"
 
 
+
+
 void AircraftManager::move()
 {
+    std::function<bool(const std::unique_ptr<Aircraft>&,const std::unique_ptr<Aircraft>&)> my_sort = [](const std::unique_ptr<Aircraft>& a,const std::unique_ptr<Aircraft>& b){
+        if(!a->has_terminal() && b->has_terminal()){
+            return false;
+        }
+        if(a->has_terminal() && !b->has_terminal()){
+            return true;
+        }
+        return a->get_fuel() < b->get_fuel();
+    };
+
+    std::sort(aircrafts.begin(), aircrafts.end(),my_sort);
+
     std::function<bool(std::unique_ptr<Aircraft>&)> predicat = [](std::unique_ptr<Aircraft>& aircraft){
         aircraft->move();
         return aircraft->if_destroy() || aircraft->get_not_fuel();
