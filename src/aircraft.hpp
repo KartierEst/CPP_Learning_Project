@@ -63,11 +63,8 @@ public:
     }
     ~Aircraft()
     {
-        auto terminal = control.get_reserved_terminal();
-        auto it = terminal.find(this);
-        if(it != terminal.end()){
-            terminal.erase(it);
-        }
+        //control.dereserve_terminal(*this);aaaaaaaaaaa
+        control.terminal_finish(*this);
     }
 
     const std::string& get_flight_num() const { return flight_number; }

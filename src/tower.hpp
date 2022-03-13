@@ -38,4 +38,7 @@ public:
     AircraftToTerminal get_reserved_terminal() { return reserved_terminals; }
 
     WaypointQueue reserve_terminal(Aircraft& aircraft);
+    void dereserve_terminal(Aircraft& aircraft);
+    //Terminal& terminal_with_aircraft(Aircraft& aircraft);
+    void terminal_finish(Aircraft& aircraft);
 };
