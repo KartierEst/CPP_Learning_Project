@@ -74,4 +74,29 @@ avec la fonction finish-service() du terminal qu'on a recupéré. Et on oublie p
 
 C - Minimiser les crashs
 
+On va faire une fonction dans move qui va verifier nos conditions pour trier le vaceteur et on va appeler sort dessus,
+et appelé le tout au debut de la fonction. On va juste coder la fonction qui prendra 2 const de unique ptr d'avion
+pour pouvoir les comparer et regarder si l'un d'entre 2 est dans un terminal, si c'est le premier alors on renvoit vrai
+si c'est le deuxième on renvoit faux et sinon on renvoit le booléen que renvoit l'expression qui verifie si
+le premiere avion a moins d'essence que le deuxième (en utilisant get_fuel).
 
+D - Réapprovisionnement
+
+1. On va faire notre fonction is low on fuel tout simplement comme demandé, et pour qu'il reste bloqué on renvoit
+le resultat de cette en fonction (avec un ou) dans is_servicing de terminal.
+
+2. On peut utiliser un algorithme, du coup on va faire un accumulate comme ce qu'on avait fais avant mais on compte
+la somme d'essence des avions qui sont sur l'aéroport et que leur essence est faible.
+
+3. On va mettre le aircraftManager en constructeur dans notre Airport pour pouvoir l'utiliser.
+
+4. On va dire que fuel_stock est un unsigned int comme ca impossible qu'il soit negatif, puis on va
+regarder si on à assez pour remplir notre reservoir et le faire, sinon on remplis avec ce qu'il reste
+dans le reservoir.
+
+5. On a juste a appelé la fonction refill sur l'avion courant si celui ci manque d'essence (is low on fuel)
+
+6. On a juste à faire ce qui est demandé, juste pour la derniere, on va se faciliter la tache et modifier
+le move de terminal pour qu'il appel refill_aircraft_if_needed dans le if et le move prendra en paramètre
+le fuel_stock en référence et il appelera refilll_aircraft_needed. Sans oubler que le move des terminaux est
+appelé juste après ce qui nous ai demandé avec fuel_stock.

@@ -3,7 +3,7 @@
 //
 
 #include "aircraftManager.h"
-#include "airport.hpp"
+//#include "airport.hpp"
 
 
 
@@ -61,4 +61,17 @@ void AircraftManager::count_airline(const unsigned int& x){
     };
     auto size = std::count_if(aircrafts.begin(),aircrafts.end(),count);
     std::cout << "Airlines " << airlines[x] << " : " << size << std::endl;
+}
+
+unsigned int AircraftManager::get_required_fuel() const
+{
+    unsigned int sum = std::accumulate(aircrafts.begin(), aircrafts.end(), 0,[](unsigned int count, const std::unique_ptr<Aircraft>& aircraft)
+                                       {
+                                           if (aircraft->is_on_ground() && aircraft->is_low_on_fuel())
+                                           {
+                                               return count + aircraft->get_fuel();
+                                           }
+                                           return count;
+                                       });
+    return sum;
 }
