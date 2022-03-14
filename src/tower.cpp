@@ -83,7 +83,7 @@ void Tower::terminal_finish(Aircraft& aircraft)
     const auto it = reserved_terminals.find(&aircraft);
     if(it != reserved_terminals.end()){
         const auto terminal_num = it->second;
-        std::cout << "terminal current " << terminal_num << std::endl;
+        //std::cout << "terminal current " << terminal_num << std::endl;
         Terminal& terminal      = airport.get_terminal(terminal_num);
         terminal.finish_service();
         reserved_terminals.erase(it);

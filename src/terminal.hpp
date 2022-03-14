@@ -57,7 +57,7 @@ public:
     }
     void refill_aircraft_if_needed(unsigned int& fuel_stock) const
     {
-        if(current_aircraft->is_low_on_fuel())
+        if(current_aircraft->is_low_on_fuel() && current_aircraft->is_on_ground())
         {
             current_aircraft->refill(fuel_stock);
         }

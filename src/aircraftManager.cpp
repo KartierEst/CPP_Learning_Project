@@ -69,7 +69,7 @@ unsigned int AircraftManager::get_required_fuel() const
                                        {
                                            if (aircraft->is_on_ground() && aircraft->is_low_on_fuel())
                                            {
-                                               return count + aircraft->get_fuel();
+                                               return count + (3000 - aircraft->get_fuel());
                                            }
                                            return count;
                                        });

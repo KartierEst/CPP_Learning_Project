@@ -9,7 +9,7 @@
 #include <string>
 #include <string_view>
 
-class Aircraft : public GL::Displayable, public GL::DynamicObject
+class Aircraft : public GL::Displayable
 {
 private:
     const AircraftType& type;
@@ -69,13 +69,13 @@ public:
     const std::string& get_flight_num() const { return flight_number; }
     const unsigned int& get_indice() const { return airline_indice; }
     float distance_to(const Point3D& p) const { return pos.distance_to(p); }
-    bool if_destroy() override { return redeployed; }//already_serviced; }
+    bool if_destroy() { return redeployed; }//already_serviced; }
     bool get_not_fuel() { return not_fuel;} // if dont have fuel
     unsigned int get_fuel() { return fuel;} // the fuel
 
 
     void display() const override;
-    void move() override;
+    void move();
 
     friend class Tower;
     void update();

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "waypoint.hpp"
-#include "airport_type.hpp"
+//#include "airport_type.hpp"
 //#include "aircraftManager.h"
 
 #include <algorithm>

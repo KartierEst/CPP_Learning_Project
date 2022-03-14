@@ -89,12 +89,6 @@ void Aircraft::add_waypoint(const Waypoint& wp, const bool front)
 
 void Aircraft::move()
 {
-    /*if(has_terminal()){
-        if(get_not_fuel()){
-            auto terminal = control.get_reserved_terminal();
-            terminal.erase(terminal.find(this));
-        }
-    }*/
     if (waypoints.empty())
     {
         if(already_serviced)
@@ -190,15 +184,15 @@ bool Aircraft::is_low_on_fuel() const
 
 void Aircraft::refill(unsigned int& fuel_stock)
 {
-    unsigned int reste = 3000 - this->fuel;
-    if(reste > fuel_stock)
+    unsigned int reste = 3000 - fuel;
+    if(reste >= fuel_stock)
     {
-        this->fuel = fuel_stock;
+        fuel += fuel_stock;
+        std::cout << "L'avion " << flight_number << " a consommé tout le stock " << std::endl;
         fuel_stock = 0;
-        std::cout << "L'avion " << this->flight_number << " a consommé tout le stock, " << fuel_stock;
         return;
     }
     fuel_stock -= reste;
-    std::cout << "L'avion " << this->flight_number << " a consommé : " << reste;
-    this->fuel = 3000 - this->fuel;
+    std::cout << "L'avion " << flight_number << " a consommé : " << reste << std::endl;
+    fuel += reste;
 }

@@ -74,23 +74,20 @@ public:
 
     void move() override
     {
-        if(next_refill_time <= 0.){
+        if(next_refill_time == 0){
             fuel_stock += ordered_fuel;
             const auto required = aircraftManager.get_required_fuel();
-            if(fuel_stock >= required){
-                ordered_fuel = 0;
-            }
-            else{
-                ordered_fuel = (required < 5000) ? required : 5000;
-                std::cout << "fuel stock : " << fuel_stock << " ordered fuel : " << ordered_fuel << std::endl;
-            }
-            next_refill_time = 100.f;
+            ordered_fuel = (required < 5000) ? required : 5000;
+            std::cout << "fuel stock : " << fuel_stock << " ordered fuel : " << ordered_fuel << std::endl;
+            next_refill_time = 100;
+        }
+        else {
+            next_refill_time--;
         }
         for (auto& t : terminals)
         {
             t.move(fuel_stock);
         }
-        next_refill_time--;
     }
 
     friend class Tower;
