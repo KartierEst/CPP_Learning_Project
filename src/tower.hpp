@@ -2,7 +2,7 @@
 
 #include "waypoint.hpp"
 #include "airport_type.hpp"
-#include "aircraftManager.h"
+//#include "aircraftManager.h"
 
 #include <algorithm>
 #include <unordered_map>
