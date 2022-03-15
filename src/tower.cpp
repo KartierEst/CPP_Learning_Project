@@ -85,7 +85,8 @@ void Tower::terminal_finish(Aircraft& aircraft)
         const auto terminal_num = it->second;
         //std::cout << "terminal current " << terminal_num << std::endl;
         Terminal& terminal      = airport.get_terminal(terminal_num);
-        terminal.finish_service();
+        //terminal.finish_service();
+        terminal.del_aircraft();
         reserved_terminals.erase(it);
     }
 }

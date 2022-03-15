@@ -62,4 +62,9 @@ public:
             current_aircraft->refill(fuel_stock);
         }
     }
+
+    void del_aircraft()
+    {
+        current_aircraft = nullptr;
+    }
 };

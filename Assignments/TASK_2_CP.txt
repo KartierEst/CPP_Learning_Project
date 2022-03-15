@@ -99,4 +99,8 @@ dans le reservoir.
 6. On a juste à faire ce qui est demandé, juste pour la derniere, on va se faciliter la tache et modifier
 le move de terminal pour qu'il appel refill_aircraft_if_needed dans le if et le move prendra en paramètre
 le fuel_stock en référence et il appelera refilll_aircraft_needed. Sans oubler que le move des terminaux est
-appelé juste après ce qui nous ai demandé avec fuel_stock.
+appelé juste après ce qui nous ai demandé avec fuel_stock. Mais quand on va détruire l'avion, au lieu de faire
+un finish_service dessus car il ne rentrera pas dans la condition car nous l'avons changé pour bloqué les avions
+dans le terminal pour qu'il se recharge. On va plus tot faire une fonction qui va passer l'avion courant du terminal
+à null sans passer par une condition, et on remplace dans la fonction terminal_finish de tower la fonction finish_service
+par celle qui passe à null l'avion courant (del_aircraft).

@@ -108,8 +108,12 @@ void Aircraft::move()
         // if we're still circling, try to get a terminal from the control tower
         if (is_circling() && !already_serviced)
         {
-            auto new_path = control.reserve_terminal(*this);
-            if(!new_path.empty()) waypoints = std::move(new_path);
+            if(fuel > 100)
+            {
+                auto new_path = control.reserve_terminal(*this);
+                if (!new_path.empty())
+                    waypoints = std::move(new_path);
+            }
         }
         // if we are close to our next waypoint, stike if off the list
         if (!waypoints.empty() && distance_to(waypoints.front()) < DISTANCE_THRESHOLD)
@@ -135,15 +139,15 @@ void Aircraft::move()
         }
         else
         {
-            update();
-            if(not_fuel){
-                std::cout << this->flight_number << " are crash" << std::endl;
-            }
             // if we are in the air, but too slow, then we will sink!
             const float speed_len = speed.length();
             if (speed_len < SPEED_THRESHOLD)
             {
                 pos.z() -= SINK_FACTOR * (SPEED_THRESHOLD - speed_len);
+            }
+            update();
+            if(not_fuel){
+                std::cout << this->flight_number << " are crash" << std::endl;
             }
         }
 
