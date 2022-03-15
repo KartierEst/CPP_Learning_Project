@@ -41,14 +41,15 @@ void TowerSimulation::create_keystrokes()
     GL::keystrokes.emplace('a', []() {GL::ticks_per_sec++; }); // up framerate
     GL::keystrokes.emplace('z', []() {(GL::ticks_per_sec > 1) ? GL::ticks_per_sec-- : GL::ticks_per_sec; }); // down framerate
     GL::keystrokes.emplace('p', []() {GL::pause = !GL::pause;}); // pause
-    GL::keystrokes.emplace('0', [this]() {aircraft_manager.count_airline(0);}); // pause
-    GL::keystrokes.emplace('1', [this]() {aircraft_manager.count_airline(1);}); // pause
-    GL::keystrokes.emplace('2', [this]() {aircraft_manager.count_airline(2);}); // pause
-    GL::keystrokes.emplace('3', [this]() {aircraft_manager.count_airline(3);}); // pause
-    GL::keystrokes.emplace('4', [this]() {aircraft_manager.count_airline(4);}); // pause
-    GL::keystrokes.emplace('5', [this]() {aircraft_manager.count_airline(5);}); // pause
-    GL::keystrokes.emplace('6', [this]() {aircraft_manager.count_airline(6);}); // pause
-    GL::keystrokes.emplace('7', [this]() {aircraft_manager.count_airline(7);}); // pause
+    GL::keystrokes.emplace('0', [this]() {aircraft_manager.count_airline(0);});
+    GL::keystrokes.emplace('1', [this]() {aircraft_manager.count_airline(1);});
+    GL::keystrokes.emplace('2', [this]() {aircraft_manager.count_airline(2);});
+    GL::keystrokes.emplace('3', [this]() {aircraft_manager.count_airline(3);});
+    GL::keystrokes.emplace('4', [this]() {aircraft_manager.count_airline(4);});
+    GL::keystrokes.emplace('5', [this]() {aircraft_manager.count_airline(5);});
+    GL::keystrokes.emplace('6', [this]() {aircraft_manager.count_airline(6);});
+    GL::keystrokes.emplace('7', [this]() {aircraft_manager.count_airline(7);});
+    GL::keystrokes.emplace('m', [this]() {std::cout << "le nombre d'avion qui a crash est : " << aircraft_manager.get_error() << std::endl;});
 }
 
 void TowerSimulation::display_help() const

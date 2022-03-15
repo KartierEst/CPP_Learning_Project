@@ -147,7 +147,8 @@ void Aircraft::move()
             }
             update();
             if(not_fuel){
-                std::cout << this->flight_number << " are crash" << std::endl;
+                //std::cout << this->flight_number << " are crash" << std::endl;
+                throw AircraftCrash { this->flight_number };
             }
         }
 

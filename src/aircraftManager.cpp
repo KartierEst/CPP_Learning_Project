@@ -22,8 +22,15 @@ void AircraftManager::move()
 
     std::sort(aircrafts.begin(), aircrafts.end(),my_sort);
 
-    std::function<bool(std::unique_ptr<Aircraft>&)> predicat = [](std::unique_ptr<Aircraft>& aircraft){
-        aircraft->move();
+    std::function<bool(std::unique_ptr<Aircraft>&)> predicat = [this](std::unique_ptr<Aircraft>& aircraft){
+        try
+        {
+            aircraft->move();
+        }
+        catch(const AircraftCrash &err){
+            m++;
+            std::cerr << err.what() << std::endl;
+        }
         return aircraft->if_destroy() || aircraft->get_not_fuel();
     };
 
@@ -74,4 +81,9 @@ unsigned int AircraftManager::get_required_fuel() const
                                            return count;
                                        });
     return sum;
+}
+
+unsigned int AircraftManager::get_error() const
+{
+    return m;
 }
