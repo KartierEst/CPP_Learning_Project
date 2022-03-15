@@ -11,6 +11,7 @@
 void AircraftManager::move()
 {
     std::function<bool(const std::unique_ptr<Aircraft>&,const std::unique_ptr<Aircraft>&)> my_sort = [](const std::unique_ptr<Aircraft>& a,const std::unique_ptr<Aircraft>& b){
+        assert(a != nullptr && b != nullptr);
         if(!a->has_terminal() && b->has_terminal()){
             return false;
         }
@@ -23,6 +24,7 @@ void AircraftManager::move()
     std::sort(aircrafts.begin(), aircrafts.end(),my_sort);
 
     std::function<bool(std::unique_ptr<Aircraft>&)> predicat = [this](std::unique_ptr<Aircraft>& aircraft){
+        assert(aircraft != nullptr);
         try
         {
             aircraft->move();
@@ -52,6 +54,7 @@ void AircraftManager::move()
 }
 void AircraftManager::add_aircraft(std::unique_ptr<Aircraft> aircraft)
 {
+    assert(aircraft != nullptr);
     aircrafts.push_back(std::move(aircraft));
 }
 
@@ -64,6 +67,7 @@ void AircraftManager::count_airline(const unsigned int& x){
         }
     }*/
     std::function<bool(std::unique_ptr<Aircraft>&)> count = [x](std::unique_ptr<Aircraft>& aircraft){
+        assert(aircraft != nullptr);
         return aircraft->get_indice() == x;
     };
     auto size = std::count_if(aircrafts.begin(),aircrafts.end(),count);
@@ -74,6 +78,7 @@ unsigned int AircraftManager::get_required_fuel() const
 {
     unsigned int sum = std::accumulate(aircrafts.begin(), aircrafts.end(), 0,[](unsigned int count, const std::unique_ptr<Aircraft>& aircraft)
                                        {
+                                           assert(aircraft != nullptr);
                                            if (aircraft->is_on_ground() && aircraft->is_low_on_fuel())
                                            {
                                                return count + (3000 - aircraft->get_fuel());

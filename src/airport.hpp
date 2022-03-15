@@ -52,10 +52,15 @@ private:
 
     WaypointQueue start_path(const size_t terminal_number)
     {
+        assert(terminal_number <= 2);
         return type.terminal_to_air(pos, 0, terminal_number);
     }
 
-    Terminal& get_terminal(const size_t terminal_num) { return terminals.at(terminal_num); }
+    Terminal& get_terminal(const size_t terminal_num)
+    {
+        assert(terminal_num <= 2);
+        return terminals.at(terminal_num);
+    }
 
 public:
     Airport(const AirportType& type_, const Point3D& pos_, const img::Image* image,const AircraftManager& _aircraftManager, const float z_ = 1.0f) :

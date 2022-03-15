@@ -29,5 +29,6 @@ void AircraftFactory::init_aircraft_types()
 }
 void AircraftFactory::add_name(const std::string& name)
 {
+    assert(!name.empty());
     uniqueAircrafts.emplace(name);
 }

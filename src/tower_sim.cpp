@@ -89,6 +89,7 @@ void TowerSimulation::launch()
     }
     init_airport();
     init_aircraftManager();
+    assert(airport != nullptr);
     GL::loop();
 }
 
