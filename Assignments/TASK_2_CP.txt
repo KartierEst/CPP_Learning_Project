@@ -104,3 +104,8 @@ un finish_service dessus car il ne rentrera pas dans la condition car nous l'avo
 dans le terminal pour qu'il se recharge. On va plus tot faire une fonction qui va passer l'avion courant du terminal
 à null sans passer par une condition, et on remplace dans la fonction terminal_finish de tower la fonction finish_service
 par celle qui passe à null l'avion courant (del_aircraft).
+
+On remarque qu'on a un petit truc pas terrible qui détruis les avions quand ils atterrissent ou quand
+ils vont vers le terminal ou quand ils décollent parce que ils sont détruis à ces moments la donc on va
+faire en sorte que si ils ont pas assez d'essence pour aller au bout, il continuera à faire des tours
+jusqu'à qu'il soit détruis.
