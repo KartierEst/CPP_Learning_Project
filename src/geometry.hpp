@@ -7,141 +7,103 @@
 #include <iostream>
 #include <numeric>
 
-struct Point2D
+template<const int Size,typename t>
+struct Point
 {
-    float values[2] {};
+    using self_type = Point<Size,t>;
+    std::array<t,Size> values {};
+    Point() {}
+    Point(t x, t y) : values { x, y }
+    {
+        static_assert(Size == 2,"Don't have 2 parameters for 2D Point");
+    }
+    Point(t x, t y, t z) : values { x, y, z }
+    {
+        static_assert(Size == 3,"Don't have 3 parameters for 3D Point");
+    }
 
-    Point2D() {}
-    Point2D(float x, float y) : values { x, y } {}
+    /*friend void test_generic_points()
+    {
+        Point<3,int> p1;
+        Point<3,int> p2;
+        auto p3 = p1 + p2;
+        p1 += p2;
+        p1 *= 3; // ou 3.f, ou 3.0 en fonction du type de Point
+    }*/
 
     float& x() { return values[0]; }
     float x() const { return values[0]; }
 
-    float& y() { return values[1]; }
-    float y() const { return values[1]; }
-
-    Point2D& operator+=(const Point2D& other)
+    float& y()
     {
-        x() += other.x();
-        y() += other.y();
-        return *this;
+        static_assert(Size >=2);
+        return values[1];
+    }
+    float y() const
+    {
+        static_assert(Size >=2);
+        return values[1];
     }
 
-    Point2D& operator*=(const Point2D& other)
+    float& z()
     {
-        x() *= other.x();
-        y() *= other.y();
-        return *this;
+        static_assert(Size ==3);
+        return values[2];
+    }
+    float z() const
+    {
+        static_assert(Size >= 3);
+        return values[2];
     }
 
-    Point2D& operator*=(const float scalar)
+    self_type& operator+=(const self_type& other)
     {
-        x() *= scalar;
-        y() *= scalar;
-        return *this;
-    }
-
-    Point2D operator+(const Point2D& other) const
-    {
-        Point2D result = *this;
-        result += other;
-        return result;
-    }
-
-    Point2D operator*(const Point2D& other) const
-    {
-        Point2D result = *this;
-        result *= other;
-        return result;
-    }
-
-    Point2D operator*(const float scalar) const
-    {
-        Point2D result = *this;
-        result *= scalar;
-        return result;
-    }
-};
-
-struct Point3D
-{
-    std::array<float,3> values {};
-
-    Point3D() {}
-    Point3D(float x, float y, float z) : values { x, y, z } {}
-
-    float& x() { return values[0]; }
-    float x() const { return values[0]; }
-
-    float& y() { return values[1]; }
-    float y() const { return values[1]; }
-
-    float& z() { return values[2]; }
-    float z() const { return values[2]; }
-
-    Point3D& operator+=(const Point3D& other)
-    {
-        /*x() += other.x();
-        y() += other.y();
-        z() += other.z();*/
-        //std::transform(values.begin(),values.end(),values.begin(),
         std::transform(values.begin(),values.end(),other.values.begin(),values.begin(),std::plus<float> {});
         return *this;
     }
 
-    Point3D& operator-=(const Point3D& other)
+    self_type& operator-=(const self_type& other)
     {
-        /*x() -= other.x();
-        y() -= other.y();
-        z() -= other.z();*/
-        //std::for_each(values.begin(),values.end(),[](float c){c = c-c;});
         std::transform(values.begin(),values.end(),other.values.begin(),values.begin(),std::minus<float> {});
         return *this;
     }
 
-    Point3D& operator*=(const float scalar)
+    self_type& operator*=(const float scalar)
     {
         std::transform(values.begin(),values.end(),values.begin(),[scalar](float c) { return c*scalar; });
-        /*x() *= scalar;
-        y() *= scalar;
-        z() *= scalar;*/
-        //std::for_each(values.begin(),values.end(),[scalar](float c){c = c*scalar;});
         return *this;
     }
 
-    Point3D operator+(const Point3D& other) const
+    self_type operator+(const self_type& other) const
     {
-        Point3D result = *this;
+        self_type result = *this;
         result += other;
         return result;
     }
 
-    Point3D operator-(const Point3D& other) const
+    self_type operator-(const self_type& other) const
     {
-        Point3D result = *this;
+        self_type result = *this;
         result -= other;
         return result;
     }
 
-    Point3D operator*(const float scalar) const
+    self_type operator*(const t scalar) const
     {
-        Point3D result = *this;
+        self_type result = *this;
         result *= scalar;
         return result;
     }
 
-    Point3D operator-() const { return Point3D { -x(), -y(), -z() }; }
+    self_type operator-() const { return self_type { -x(), -y(), -z() }; }
 
     float length() const {
-        //std::cout << std::sqrt(std::accumulate(values.begin(),values.end(),0.0,[](float count,float a){ return count+(a*a);})) << std::endl;
-        //std::cout << "sqrt " << std::sqrt(x() * x() + y() * y() + z() * z()) << std::endl;
         return std::sqrt(std::accumulate(values.begin(),values.end(),0.0,[](float count,float a){ return count+(a*a);}));
-        //return std::sqrt(x() * x() + y() * y() + z() * z());
     }
 
-    float distance_to(const Point3D& other) const { return (*this - other).length(); }
+    float distance_to(const self_type& other) const { return (*this - other).length(); }
 
-    Point3D& normalize(const float target_len = 1.0f)
+    self_type& normalize(const float target_len = 1.0f)
     {
         const float current_len = length();
         if (current_len == 0)
@@ -153,7 +115,7 @@ struct Point3D
         return *this;
     }
 
-    Point3D& cap_length(const float max_len)
+    self_type& cap_length(const float max_len)
     {
         assert(max_len > 0);
 
@@ -165,7 +127,42 @@ struct Point3D
 
         return *this;
     }
+
+    self_type operator*(const self_type& other) const
+    {
+        self_type result = *this;
+        result *= other;
+        return result;
+    }
+
+    self_type& operator*=(const self_type& other)
+    {
+        x() *= other.x();
+        y() *= other.y();
+        return *this;
+    }
+
+    t* toArray() const
+    {
+        return (t*) values.data();
+    }
 };
+
+/*template<size_t n>
+struct Point3D_assert {
+    static_assert(n == 3,"don't have 3 param");
+    using type = Point<n,float>;
+};
+
+template<size_t n>
+struct Point2D_assert {
+    static_assert(n == 2,"don't have 2 param");
+    using type = Point<n,float>;
+};*/
+
+using Point3D = Point<3,float>;
+using Point2D = Point<2,float>;
+
 
 // our 3D-coordinate system will be tied to the airport: the runway is parallel to the x-axis, the z-axis
 // points towards the sky, and y is perpendicular to both thus,
