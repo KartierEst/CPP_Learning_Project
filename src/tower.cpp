@@ -7,7 +7,7 @@
 
 WaypointQueue Tower::get_circle() const
 {
-    return { { Point3D { -1.5f, -1.5f, .5f }, wp_air },
+    return { { Point3D { -1.5f, -1.5f, .5f}, wp_air },
              { Point3D { 1.5f, -1.5f, .5f }, wp_air },
              { Point3D { 1.5f, 1.5f, .5f }, wp_air },
              { Point3D { -1.5f, 1.5f, .5f }, wp_air } };

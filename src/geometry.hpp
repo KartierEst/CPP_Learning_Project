@@ -8,18 +8,25 @@
 #include <numeric>
 
 template<const int Size,typename t>
+//template<typename...
 struct Point
 {
     using self_type = Point<Size,t>;
     std::array<t,Size> values {};
     Point() {}
+    template <typename... Args>
+    /*Point(Args... args) : values { args }
+    {
+
+        static_assert(Size == sizeof(args),"Don't have 2 parameters for 2D Point");
+    }*/
     Point(t x, t y) : values { x, y }
     {
-        static_assert(Size == 2,"Don't have 2 parameters for 2D Point");
+        static_assert(Size == 2,"Try to use a Point2D but this is not a Point2D");
     }
     Point(t x, t y, t z) : values { x, y, z }
     {
-        static_assert(Size == 3,"Don't have 3 parameters for 3D Point");
+        static_assert(Size == 3,"Try to use a Point3D but this is not a Point3D");
     }
 
     /*friend void test_generic_points()
@@ -47,7 +54,7 @@ struct Point
 
     float& z()
     {
-        static_assert(Size ==3);
+        static_assert(Size >= 3);
         return values[2];
     }
     float z() const
