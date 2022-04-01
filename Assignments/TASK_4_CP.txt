@@ -27,3 +27,11 @@ au nombre d'arguments. Donc on va vérifier pour le constructeur du Point2D si s
 et pour le constructeur de Point3D c'est pareil mais avec 3. Pour y() on doit vérifier si la taille est
 plus grand ou égale à 2 car il faut vérifier si on est minimum en 2D et pour z() c'est pareil avec 3 pour
 vérifier si on est en minimum 3D.
+
+6. On va faire un template avec un "Args" et des ... pour avoir un variadic templates, qui veut dire qu'on peut
+avoir plein d'arguments dans notre signature de fonctions ou constructeur sans préciser ce que l'on veut.
+Donc on va ajouter avec l'arguments dans le template une référence universelle avec les &&, et mettres
+dans notre array values tout les arguments données dans le constructeur car on veut y ajouter le x
+le y le z etc.. en fonction de sa dimension. Mais on a un soucis de typage, les constructeurs des points
+ne reconnaissent pas les valeurs et renvoit plein de problèmes de typages. Nous n'avons pas vu ca en cours,
+j'ai fais mes petites recherches sur le net, demander au prof mais je n'ai rien pu trouver comme solution.

@@ -12,3 +12,11 @@
 1	1380	1648559235468208472	CMakeFiles/tower.dir/src/img/image.cpp.o	3dabca01bf7615c6
 2	1176	1648563638275980103	CMakeFiles/tower.dir/src/GL/opengl_interface.cpp.o	81f4d2953748bef8
 3	1244	1648563638340012106	CMakeFiles/tower.dir/src/aircraftManager.cpp.o	f1f1c020040352ea
+2	1213	1648851912921959271	CMakeFiles/tower.dir/src/GL/opengl_interface.cpp.o	81f4d2953748bef8
+2	1249	1648851912957959571	CMakeFiles/tower.dir/src/aircraft.cpp.o	6661d87676b163c7
+3	1285	1648851912993959870	CMakeFiles/tower.dir/src/aircraftManager.cpp.o	f1f1c020040352ea
+3	1334	1648851913041960268	CMakeFiles/tower.dir/src/aircraftFactory.cpp.o	3c0b8b587d7babb2
+3	1344	1648851913053960371	CMakeFiles/tower.dir/src/main.cpp.o	4b1de17ef7338131
+2	1360	1648851913069960501	CMakeFiles/tower.dir/src/tower.cpp.o	f21b9eb3d1d1b09b
+2	1726	1648851913433963527	CMakeFiles/tower.dir/src/tower_sim.cpp.o	3370a63893f6438d
+1726	1900	1648851913601964922	tower	bda9f115c24e135f

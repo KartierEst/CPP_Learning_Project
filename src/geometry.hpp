@@ -16,11 +16,11 @@ struct Point
     std::array<t,Size> values {};
     Point() {}
     template <typename... Args>
-    Point(Args&&... args) : values { std::forward<Args>(args)... }
+    /*Point(Args&&... args) : values { std::forward<Args>(args)... }
     {
         //static_assert(Size == values.size(),"Don't have 2 parameters for 2D Point");
-    }
-    /*Point(t x, t y) : values { x, y }
+    }*/
+    Point(t x, t y) : values { x, y }
     {
         static_assert(Size == 2,"Try to use a Point2D but this is not a Point2D");
     }
@@ -29,7 +29,7 @@ struct Point
         static_assert(Size == 3,"Try to use a Point3D but this is not a Point3D");
     }
 
-    friend void test_generic_points()
+    /*friend void test_generic_points()
     {
         Point<3,int> p1;
         Point<3,int> p2;
