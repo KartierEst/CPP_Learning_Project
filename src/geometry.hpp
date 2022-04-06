@@ -8,23 +8,22 @@
 #include <numeric>
 #include <utility>
 
-template<const int Size,typename t>
-//template<typename...
+template<const int Size,typename T>
 struct Point
 {
-    using self_type = Point<Size,t>;
-    std::array<t,Size> values {};
+    using self_type = Point<Size,T>;
+    std::array<T,Size> values {};
     Point() {}
-    template <typename... Args>
-    /*Point(Args&&... args) : values { std::forward<Args>(args)... }
+    /*template <typename... Args>
+    Point(Args&&... args) : values { std::forward<Args>(args)... }
     {
         //static_assert(Size == values.size(),"Don't have 2 parameters for 2D Point");
     }*/
-    Point(t x, t y) : values { x, y }
+    Point(T x, T y) : values { x, y }
     {
         static_assert(Size == 2,"Try to use a Point2D but this is not a Point2D");
     }
-    Point(t x, t y, t z) : values { x, y, z }
+    Point(T x, T y, T z) : values { x, y, z }
     {
         static_assert(Size == 3,"Try to use a Point3D but this is not a Point3D");
     }
@@ -95,7 +94,7 @@ struct Point
         return result;
     }
 
-    self_type operator*(const t scalar) const
+    self_type operator*(const T scalar) const
     {
         self_type result = *this;
         result *= scalar;
@@ -149,9 +148,9 @@ struct Point
         return *this;
     }
 
-    t* toArray() const
+    T* toArray() const
     {
-        return (t*) values.data();
+        return (T*) values.data();
     }
 };
 
