@@ -14,10 +14,10 @@ struct Point
     using self_type = Point<Size,T>;
     std::array<T,Size> values {};
     Point() {}
-    /*template <typename... Args>
-    Point(Args&&... args) : values { std::forward<Args>(args)... }
+    template <typename... Args>
+    /*Point(T first,Args&&... args) : values { std::forward<Args>(args)... }
     {
-        //static_assert(Size == values.size(),"Don't have 2 parameters for 2D Point");
+        static_assert(Size == values.size(),"Don't have 2 parameters for 2D Point");
     }*/
     Point(T x, T y) : values { x, y }
     {
