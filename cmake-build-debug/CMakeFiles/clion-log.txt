@@ -1,4 +1,4 @@
-/snap/clion/184/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/184/bin/ninja/linux/ninja -G Ninja /home/abder/Bureau/m1/c++/CPP_Learning_Project
+/snap/clion/189/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/189/bin/ninja/linux/ninja -G Ninja -S /home/abder/Bureau/m1/c++/CPP_Learning_Project -B /home/abder/Bureau/m1/c++/CPP_Learning_Project/cmake-build-debug
 -- The C compiler identification is GNU 9.4.0
 -- The CXX compiler identification is GNU 9.4.0
 -- Detecting C compiler ABI info
@@ -12,6 +12,9 @@
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Could NOT find FreeGLUT (missing: FreeGLUT_DIR)
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.1") 
+-- Checking for module 'glut'
+--   No package 'glut' found
 -- Found GLUT: /usr/lib/x86_64-linux-gnu/libglut.so  
 Library GLUT found.
 -- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   

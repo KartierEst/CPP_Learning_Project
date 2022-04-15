@@ -11,22 +11,22 @@
 template<const int Size,typename T>
 struct Point
 {
-    using self_type = Point<Size,T>;
+    //using self_type = Point<Size,T>;
     std::array<T,Size> values {};
     Point() {}
     template <typename... Args>
-    /*Point(T first,Args&&... args) : values { std::forward<Args>(args)... }
+    Point(T first,Args&&... args) : values { first,std::forward<Args>(args)... }
     {
-        static_assert(Size == values.size(),"Don't have 2 parameters for 2D Point");
-    }*/
-    Point(T x, T y) : values { x, y }
+        static_assert(sizeof...(args) + 1 == Size,"Don't have the good number of parameters for thes Point");
+    }
+    /*Point(T x, T y) : values { x, y }
     {
         static_assert(Size == 2,"Try to use a Point2D but this is not a Point2D");
     }
     Point(T x, T y, T z) : values { x, y, z }
     {
         static_assert(Size == 3,"Try to use a Point3D but this is not a Point3D");
-    }
+    }*/
 
     /*friend void test_generic_points()
     {
@@ -62,54 +62,54 @@ struct Point
         return values[2];
     }
 
-    self_type& operator+=(const self_type& other)
+    Point& operator+=(const Point& other)
     {
         std::transform(values.begin(),values.end(),other.values.begin(),values.begin(),std::plus<float> {});
         return *this;
     }
 
-    self_type& operator-=(const self_type& other)
+    Point& operator-=(const Point& other)
     {
         std::transform(values.begin(),values.end(),other.values.begin(),values.begin(),std::minus<float> {});
         return *this;
     }
 
-    self_type& operator*=(const float scalar)
+    Point& operator*=(const float scalar)
     {
         std::transform(values.begin(),values.end(),values.begin(),[scalar](float c) { return c*scalar; });
         return *this;
     }
 
-    self_type operator+(const self_type& other) const
+    Point operator+(const Point& other) const
     {
-        self_type result = *this;
+        Point result = *this;
         result += other;
         return result;
     }
 
-    self_type operator-(const self_type& other) const
+    Point operator-(const Point& other) const
     {
-        self_type result = *this;
+        Point result = *this;
         result -= other;
         return result;
     }
 
-    self_type operator*(const T scalar) const
+    Point operator*(const T scalar) const
     {
-        self_type result = *this;
+        Point result = *this;
         result *= scalar;
         return result;
     }
 
-    self_type operator-() const { return self_type { -x(), -y(), -z() }; }
+    Point operator-() const { return Point { -x(), -y(), -z() }; }
 
     float length() const {
         return std::sqrt(std::accumulate(values.begin(),values.end(),0.0,[](float count,float a){ return count+(a*a);}));
     }
 
-    float distance_to(const self_type& other) const { return (*this - other).length(); }
+    float distance_to(const Point& other) const { return (*this - other).length(); }
 
-    self_type& normalize(const float target_len = 1.0f)
+    Point& normalize(const float target_len = 1.0f)
     {
         const float current_len = length();
         if (current_len == 0)
@@ -121,7 +121,7 @@ struct Point
         return *this;
     }
 
-    self_type& cap_length(const float max_len)
+    Point& cap_length(const float max_len)
     {
         assert(max_len > 0);
 
@@ -134,14 +134,14 @@ struct Point
         return *this;
     }
 
-    self_type operator*(const self_type& other) const
+    Point operator*(const Point& other) const
     {
-        self_type result = *this;
+        Point result = *this;
         result *= other;
         return result;
     }
 
-    self_type& operator*=(const self_type& other)
+    Point& operator*=(const Point& other)
     {
         x() *= other.x();
         y() *= other.y();
